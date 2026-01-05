@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>My Todo List</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .todo-container {
+        width: 360px;
+        background: white;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #444;
+    }
+
+    .input-area {
+        display: flex;
+        gap: 8px;
+    }
+
+    .input-area input {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+    }
+
+    .input-area button {
+        border: none;
+        border-radius: 8px;
+        padding: 0 16px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 16px;
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    li {
+        background: #f6f7fb;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: fadeIn 0.3s;
+    }
+
+    li span {
+        font-size: 14px;
+    }
+
+    li button {
+        border: none;
+        background: #ff5f5f;
+        color: white;
+        border-radius: 6px;
+        padding: 4px 8px;
+        cursor: pointer;
+        font-size: 12px;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(5px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+<div class="todo-container">
+    <h1>오늘의 할 일</h1>
+    <div class="input-area">
+        <input type="text" id="todoInput" placeholder="할 일을 입력하세요">
+        <button onclick="addTodo()">추가</button>
+    </div>
+    <ul id="todoList"></ul>
+</div>
+
+<script>
+    function addTodo() {
+        const input = document.getElementById('todoInput');
+        const text = input.value.trim();
+        if (text === "") return;
+
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        span.textContent = text;
+
+        const btn = document.createElement('button');
+        btn.textContent = "완료";
+        btn.onclick = () => li.remove();
+
+        li.appendChild(span);
+        li.appendChild(btn);
+        document.getElementById('todoList').appendChild(li);
+
+        input.value = "";
+        input.focus();
+    }
+
+    document.getElementById('todoInput').addEventListener("keydown", function(e) {
+        if (e.key === "Enter") addTodo();
+    });
+</script>
+
+</body>
+</html>
